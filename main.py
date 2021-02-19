@@ -18,3 +18,27 @@ for key, value in convert_to_dict.items():
         except ValueError:
             print('Некорректный формат ввода!')
 
+interest = convert_to_dict['interest']
+amount = convert_to_dict['amount']
+term = convert_to_dict['term']
+downpayment = convert_to_dict['downpayment']
+
+total_amount = 0
+
+if downpayment is None:
+    total_amount = total_amount + amount
+else:
+    total_amount = amount - downpayment
+
+
+def monthly_calculator(total, years, interest_ratio):
+    interest_ratio = interest / 100
+    months = term * 12
+    interest_monthly = interest_ratio / 12
+    numerator = interest_monthly * ((1 + interest_monthly) ** months)
+    denominator = (1 + interest_monthly) ** months - 1
+    monthly_payment = float('{0:.2f}'.format(total * numerator / denominator))
+    return monthly_payment
+
+
+print(monthly_calculator(amount, term, interest))
